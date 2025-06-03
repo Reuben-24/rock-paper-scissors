@@ -27,7 +27,7 @@ function logHumanLoss() {
 function logTie() {
     console.log("Tie");
 }
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice, computerChoice, humanScore, computerScore) {
     if (humanChoice === "rock") {
         if (computerChoice === "rock") {
             logTie();
@@ -72,9 +72,9 @@ function playRound(humanChoice, computerChoice) {
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
-    for (i = 0; i < 5; i++)
+    for (let i = 0; i < 5; i++)
     {
-        playRound(getHumanChoice(), getComputerChoice());
+        playRound(getHumanChoice(), getComputerChoice(), humanScore, computerScore);
     }
 }
 
