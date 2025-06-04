@@ -11,72 +11,44 @@ function getComputerChoice() {
     }   
 }
 
-function getHumanChoice() {
-    const message = "Enter your choice: ";
-    return prompt(message).trim().toLowerCase();
+function displayResults(message) {
+    resultsDisplay.textContent = 
+        message +
+        `\nYour Score: ${humanScore}\n
+        Computer Score: ${computerScore}`;
 }
 
-function logHumanWin() {
-    console.log("You Win!");
-}
-
-function logHumanLoss() {
-    console.log("You Lose!");
-}
-
-function logTie() {
-    console.log("Tie");
-}
-function playRound(humanChoice, computerChoice, humanScore, computerScore) {
-    if (humanChoice === "rock") {
-        if (computerChoice === "rock") {
-            logTie();
-        }
-        else if (computerChoice === "paper") {
-            logHumanLoss();
-            computerScore++;
-        }
-        else {
-            logHumanWin();
-            humanScore++;
-        }
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+    let message;
+    if (humanChoice === computerChoice) {
+        message = "It's a tie!";
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        message = "You win this round!";
+        humanScore++;
+    } else {
+        message = "Computer wins this round!";
+        computerScore++;
     }
-    else if (humanChoice === "paper") {
-        if (computerChoice === "rock") {
-            logHumanWin();
-            humanScore++;
-        }
-        else if (computerChoice === "paper") {
-            logTie();
-        }
-        else {
-            logHumanLoss();
-            computerScore++;
-        }
-    }
-    else if (humanChoice === "scissors") {
-        if (computerChoice === "rock") {
-            logHumanLoss();
-            computerScore++;
-        }
-        else if (computerChoice === "paper") {
-            logHumanWin();
-            humanScore++;
-        }
-        else {
-            logTie();
-        }
-    }
+    displayResults(message)
 }
 
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++)
-    {
-        playRound(getHumanChoice(), getComputerChoice(), humanScore, computerScore);
-    }
-}
+let humanScore = 0;
+let computerScore = 0;
+let rockButton = document.querySelector("#rock-button");
+let paperButton = document.querySelector("#paper-button");
+let scissorsButton = document.querySelector("#scissors-button");
+let resultsDisplay = document.querySelector("#results-display");
 
-playGame();
+rockButton.addEventListener('click', () => {
+    playRound(rockButton.name)});
 
+paperButton.addEventListener('click', () => {
+    playRound(paperButton.name)});
+
+scissorsButton.addEventListener('click', () => {
+    playRound(scissorsButton.name)});
